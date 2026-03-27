@@ -1,35 +1,32 @@
 import axios from 'axios'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { AuthContext } from '../contexts/AuthContext'
 
 const Login = () => {
 const [username, setUsername] = useState("")
 const [password, setPassword] = useState("")
-
+const {authenticateUser} = useContext(AuthContext)
 const nav = useNavigate()
 
-async function handleLogin(e) {
-  e.preventDefault();
-  try {
-    const res = await axios.post("http://localhost:5005/auth/login", {username, password});
+ async function handleLogin(e) {
+    e.preventDefault();
+    //create an object with all the data
+    try {
+      const res = await axios.post("http://localhost:5005/auth/login", {
+        username,
+        password,
+      });
 
-    if (res.data && res.data.authToken) {
-       
-       localStorage.setItem("authToken", res.data.authToken);
-       
-       const check = localStorage.getItem("authToken");
-       
-       if (check) {
-         nav("/profile");
-       } else {
-         alert("CRITICAL: LocalStorage refused to save the token!");
-       }
+      console.log("logged in!", res);
+      localStorage.setItem("authToken", res.data.authToken);
+      //call the authenticate function from the auth context to set the three states
+      await authenticateUser();
+      nav("/profile");
+    } catch (error) {
+      console.log(error);
     }
-  } catch (err) {
-    console.log("Login failed:", err);
   }
-}
-// front end regex validation 
 
 
   return (

@@ -12,35 +12,46 @@ const AuthWrapper = ({children}) => {
    
     const nav = useNavigate()
 
-    const authenticateUser = async function(){
-    const theToken = localStorage.getItem("authToken")
-  
-try {
-    const {data} = await axios.get("http://localhost:5005/auth/verify", {
+    
+
+const authenticateUser = async function () {
+    try {
+      const theToken = localStorage.getItem("authToken");
+      if (!theToken) {
+        setIsLoading(false);
+        setIsLoggedIn(false);
+        setCurrentUser(null);
+        return;
+      }
+      const { data } = await axios.get("http://localhost:5005/auth/verify", {
         headers: {
-            authorization: `Bearer ${theToken}`
-        }
-    })
-    console.log("token valid frontend", data)
-    setIsLoading(false)
-    setIsLoggedIn(true)
-    setCurrentUser(data.currentUser)
+          authorization: `Bearer ${theToken}`,
+        },
+      });
 
-} catch (error) {
-    console.log(error)
-    setIsLoading(false)
+      setIsLoggedIn(true);
+      setCurrentUser(data.currentUser);
+    } catch (error) {
+      console.log(error.response.data.errorMessage);
+      setIsLoggedIn(false);
+      setCurrentUser(null);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+function handleLogout (){
+    localStorage.removeItem('authToken')
     setIsLoggedIn(false)
-    setCurrentUser(null)
-nav("/login")
+    nav("/login")
 }
-};
 
-useEffect(()=>{
-authenticateUser()
-}, [])
+  useEffect(() => {
+    authenticateUser();
+  }, []);
 
     return (
-<AuthContext.Provider value={{}}>
+<AuthContext.Provider value={{isLoading, isLoggedIn, currentUser, authenticateUser,handleLogout}}>
     {children}
 </AuthContext.Provider>
 

@@ -3,17 +3,27 @@ import './App.css'
 import Signup from './pages/Signup'
 import Login from './pages/Login'
 import Profile from './pages/Profile'
+import ProtectedRoute from './components/ProtectedRoute'
+import Navbar from './components/Navbar'
+import AlbumDetails from "./pages/AlbumDetails"
 
 function App() {
 
   return (
     <>
-      <h1>hellow world</h1>
+      <Navbar/>
       <Routes>
        <Route path="/"  element={<Signup/>}/> 
        <Route path="/login"  element={<Login/>}/> 
-       <Route path="/profile"  element={<Profile/>}/> 
+      
+       <Route path="/profile"  element={
+       <ProtectedRoute>
 
+       <Profile/> 
+       </ProtectedRoute>
+       }
+       />
+       <Route path="profile/album/:albumId" element={<AlbumDetails/>}/>
       </Routes>
                </>
   )
