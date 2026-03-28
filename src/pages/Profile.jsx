@@ -5,8 +5,8 @@ import CreateAlbum from "../components/CreateAlbum"
 
 const Profile = () => {
 
-const {isLoading, isLoggedIn, currentUser, authenticateUser} = useContext(AuthContext)
-const [profileUser, setProfileUser] = useState()
+const {isLoading, isLoggedIn, currentUser} = useContext(AuthContext)
+const [profileUser, setProfileUser] = useState("")
 console.log(isLoading, isLoggedIn, currentUser)
 useEffect(()=>{
   async function getProfileUser(){
@@ -26,17 +26,20 @@ useEffect(()=>{
 getProfileUser()
 }, [currentUser])
   return (
-    <div className="bg-black">
+    <div className="bg-black w-screen">
     <div className="flex">
 
-{/* <img src={profileUser.profileImage} className=" w-24"></img> */}
-      <h1 className="text-2xl">
-{/* {profileUser.username}'s Profile */}
+<img src={profileUser.profileImage} className=" w-24"></img>
+      <h1 className="text-2xl text-white">
+{profileUser.username}'s Profile
       </h1> 
     </div>
 
 
 <CreateAlbum/>
+
+//show users
+
    
     </div>
   )

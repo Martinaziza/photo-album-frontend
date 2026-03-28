@@ -1,14 +1,14 @@
 import axios from "axios"
 import { useContext, useEffect, useState } from "react"
 import { AuthContext } from "../contexts/AuthContext"
-import { Link, useParams } from "react-router-dom"
+import { Link } from "react-router-dom"
 
 const CreateAlbum = () => {
 const {currentUser} = useContext(AuthContext)
 
 const [title, setTitle] = useState("")
 const [albums, setAlbums] = useState([])
-const [isEditing, setIsEditing] = useState (null)
+const [isEditing, setIsEditing] = useState (false)
  
 //create an album
 const handleSubmit = async (e) => {
@@ -36,8 +36,6 @@ try {
      }   
         fetchAlbums()
      }, [])
-
-     const { albumId } = useParams(); 
      
      //delete an album
      const handleDeleteAlbum = async (albumId) => {
@@ -49,11 +47,10 @@ try {
       }
     }
 
-     //update album
 
 
   return (
-    <div>
+    <div className="w-screen bg-black">
     <form onSubmit={handleSubmit} className="flex flex-col mt-10 ml-8">
     <label className="text-blue-700">
         Title: 
@@ -67,13 +64,14 @@ try {
 <div className="flex flex-wrap">
 {albums.map((album)=>{
     return(
-        <Link to={`album/${album._id}`}>
-        <div key={album._id} className="flex justify-center">
+        <div key={album._id} className="flex flex-col align-middle m-12">
 
-    <h3 className="w-40 h-56 flex justify-center bg-blue-700 m-12 ">{album.title} <span onClick={() => handleDeleteAlbum(album._id)}className="text-white">x</span></h3>
+    <h3 className="w-80 h-56 flex justify-center bg-blue-700">{album.title} <span onClick={() => handleDeleteAlbum(album._id)}className="text-white ml-2 h-6 w-4">x</span></h3>
     
-        </div>
+        <Link to={`album/${album._id}`}>
+        <p className="text-white mt-2">See Album</p>
         </Link>
+        </div>
     )
 })
 }

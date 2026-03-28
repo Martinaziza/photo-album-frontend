@@ -30,18 +30,17 @@ const nav = useNavigate()
 
 
   return (
-    <div>
-      <h1>Login</h1>
-      <form onSubmit={handleLogin} className="flex flex-col" >
-<label>
+    <div className='h-screen bg-black w-screen'>
+      <form onSubmit={handleLogin} className="flex flex-col justify-center bg-black h-screen" >
+<label className="text-white">
     Username:
-    <input type="text" value={username} onChange={(e)=>{setUsername(e.target.value)}} className='border-2 border-pink-600'/>
+    <input type="text" value={username} onChange={(e)=>{setUsername(e.target.value)}} className='border-2 border-pink-600 ml-3 mb-4'/>
 </label>
-<label>
+<label className="text-white">
     Password:
-    <input type="password" value={password} onChange={(e)=>{setPassword(e.target.value)}}className='border-2 border-pink-600'/>
+    <input type="password" value={password} onChange={(e)=>{setPassword(e.target.value)}}className='border-2 border-pink-600 ml-3 mb-3'/>
 </label>
-<button type="submit" >Login</button> 
+<button className="border-2 border-amber-100 w-20 text-white py-1" type="submit" >Login</button> 
       </form>
     </div>
   )
