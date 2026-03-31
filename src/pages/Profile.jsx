@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react"
 import { AuthContext } from "../contexts/AuthContext"
 import axios from "axios"
 import CreateAlbum from "../components/CreateAlbum"
+import Users from "../components/Users"
 
 const Profile = () => {
 
@@ -38,8 +39,7 @@ getProfileUser()
 
 <CreateAlbum/>
 
-//show users
-
+<Users/>
    
     </div>
   )

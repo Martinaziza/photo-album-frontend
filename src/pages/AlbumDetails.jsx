@@ -1,6 +1,7 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom";
+import Comments from "../components/Comments";
 
 const AlbumDetails = () => {
 
@@ -10,6 +11,7 @@ const AlbumDetails = () => {
   const [photos, setPhotos] = useState([])
   const [imageUrl, setImageUrl] = useState("")
   const [caption, setCaption] = useState("")
+  const [editingId, setEditingId] = useState(null)
   
   // fetch single album
  useEffect (()=>{
@@ -25,8 +27,7 @@ const AlbumDetails = () => {
      oneAlbum()
  }, [albumId])
 
-//await post all photos by id
-
+//add photos
 const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -45,7 +46,7 @@ try {
 } catch (error) {
     console.log(error)}}
 
-//await get all photos by id
+//get all photos by id
 useEffect (()=>{
   if (!albumId) return;
   
@@ -61,8 +62,34 @@ useEffect (()=>{
         fetchPhotos()
      }, [albumId])
 
-// Update info
+
+
+const handleSave = async (photoId) => {
+try {
+  await axios.patch(`http://localhost:5005/api/album/${albumId}/photo/${photoId}`, {caption: caption})
+
+setPhotos((prev) => 
+      prev.map((photo) => (photo._id === photoId ? { ...photo, caption: caption } : photo))
+    );
+
+    setEditingId(null)
+
+} catch (error) {
+  console.log(error)
+  setEditingId(null)
+
+}
+}
+
 // delete photo
+const handleDeletePhoto = async (photoId) => {
+      try {
+        await axios.delete(`http://localhost:5005/api/album/${albumId}/photo/${photoId}`)
+        setPhotos((prev)=> prev.filter((photo)=> photo._id !== photoId))
+      } catch (error) {
+        console.log(error)
+      }
+    }
 
 
   return (
@@ -78,14 +105,38 @@ useEffect (()=>{
       Add photos +
     </button>
     </form>
+ 
+ 
  {photos.map((photo)=>{
   return (
-    <div key={photo._id}>
-  <img  src={photo.imageUrl} className="w-175" />
-    
-    <form>
-      <input type="text" placeholder="caption" value={caption} onChange={(e)=>{setCaption(e.target.value)}}/>
-    </form>
+    <div key={photo._id} className="bg-black">
+  <img  src={photo.imageUrl} className="w-175 bg-black" />
+    <span onClick={() => handleDeletePhoto(photo._id)} className="bg-black text-white">x</span>
+     
+     
+     {editingId === photo._id ? (
+      <input
+      autoFocus
+       type="text" 
+       value={caption} 
+       onChange={(e)=>{setCaption(e.target.value)}}
+      onBlur={()=> handleSave(photo._id)}
+      onKeyDown={(e) => {
+      if (e.key === 'Enter') handleSave(photo._id);
+      if (e.key === 'Escape') setEditingId(null)
+      }}
+       />
+
+     ) : <span
+    onClick={() => {
+    setEditingId(photo._id);
+    setCaption(photo.caption)}}>
+      {photo.caption || "Click to edit" }
+    </span>
+      }
+
+<Comments photoId={photo._id}/>
+
 
     </div>
   )
@@ -99,3 +150,4 @@ useEffect (()=>{
 }
 
 export default AlbumDetails
+
