@@ -28,7 +28,7 @@ const [users, setUsers] = useState([])
 return (
     <div>
 
-<img src={user.profileImage}/>
+<img src={user.profileImage} className="w-16"/>
 <h2>{user.username}</h2>
     </div>
 )

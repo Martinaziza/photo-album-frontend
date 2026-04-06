@@ -1,17 +1,21 @@
 import axios from 'axios'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import Logo from "../assets/Snapshots logo.png"
 
 const Signup = () => {
 const [username, setUsername] = useState("")
 const [email, setEmail] = useState("")
 const [password, setPassword] = useState("")
-const [message, setMessage] = useState(null)
+const [errorMessage, setErrorMessage] = useState("")
+
+
 
 const nav = useNavigate()
 
 async function handleSignup(e){
 e.preventDefault();
+setErrorMessage("")
 const userToSignup = {username, email, password}
 try {
     const createdUser = await axios.post("http://localhost:5005/auth/signup", userToSignup)
@@ -20,29 +24,33 @@ try {
     nav("login/")
 } catch (error) {
     console.log(error)
+     const errMsg = error.response.data.message
+      setErrorMessage(errMsg)
 }
 }
-// front end regex validation 
 
 
   return (
-    <div className='bg-black h-screen w-screen'>
-      <form onSubmit={handleSignup} className=" flex flex-col h-screen justify-center" >
-      <h1 className='text-white mb-7'>Sign up to create your own photo albums</h1>
-<label className='text-white'>
+    <div className='bg-black h-[99vh] w-screen flex flex-col items-center'>
+    <img src={Logo} alt="logo" className="h-45 object-contain mt-10 w-45"/>
+
+      <form onSubmit={handleSignup} className=" flex flex-col mt-8 w-[45vw] items-center">
+      <h1 className='text-[rgb(228,134,134)] mb-7 text-lg'>Sign up to create your own photo albums</h1>
+<label className='text-[rgb(228,134,134)]'>
     Username:
-    <input type="text" value={username} onChange={(e)=>{setUsername(e.target.value)}} className='border-2 border-pink-600 ml-3 mb-4'/>
+    <input type="text" value={username} onChange={(e)=>{setUsername(e.target.value)}} className='border-[#522B37DB] border-2 text-[rgb(228,134,134)] rounded-md ml-3 mb-4 text-lg'/>
 </label>
-<label className='text-white'>
+<label className='text-[rgb(228,134,134)] text-lg'>
     Email:
-    <input type="email" value={email} onChange={(e)=>{setEmail(e.target.value)}} className='border-2 border-pink-600 ml-3 mb-4'/>
+    <input type="email" value={email} onChange={(e)=>{setEmail(e.target.value)}} className='border-[#522B37DB] border-2 text-[rgb(228,134,134)] rounded-md ml-3 mb-4'/>
 </label>
-<label className="text-white">
+<label className="text-[rgb(228,134,134)] text-lg">
     Password:
-    <input type="password" value={password} onChange={(e)=>{setPassword(e.target.value)}}className='border-2 border-pink-600 ml-3 mb-4'/>
+    <input type="password" value={password} onChange={(e)=>{setPassword(e.target.value)}}className='border-[#522B37DB] border-2 text-[rgb(228,134,134)] rounded-md ml-3 mb-5'/>
 </label>
-<button className='text-white border-2 w-20 px-2 py-1' type="submit" >Sign up</button> 
+<button className='border-[#522B37DB] border-2 bg-[rgb(228,134,134)] rounded-md w-20 px-2 py-1' type="submit" >Sign up</button> 
       </form>
+      <p className="text-[#E83D3D] mt-6 text-[18px]">{errorMessage}</p>
     </div>
   )
 }

@@ -9,13 +9,15 @@ const [content, setContent] = useState("")
   const handleSubmitComment = async (e) => {
     e.preventDefault();
     try {
+      const storedToken = localStorage.getItem('authToken')
       const response = await axios.post(
         `http://localhost:5005/api/photo/${photoId}/comment`,
-        { content }
+        { content },
+        { headers: { Authorization: `Bearer ${storedToken}` } }
       );
       console.log(response.data);
       setComments([...comments, response.data]);
-      ;
+      setContent("");
     } catch (error) {
       console.log(error);
     }
@@ -39,9 +41,10 @@ useEffect(() => {
 
   return (
     <div>
-<form onSubmit={handleSubmitComment}>
-<input type="text" className="border-2 w-70 h-15"/>
-<button type="submit"> Leave a comment!</button>
+<form onSubmit={handleSubmitComment} className="flex flex-col">
+<input type="text" value={content} 
+  onChange={(e) => setContent(e.target.value)} className="border-[#522B37DB] border-2 rounded-md w-70 h-15"/>
+<button type="submit" className="border-[#522B37DB] border-2 bg-[rgb(228,134,134)] rounded-md w-30"> Leave a comment!</button>
 </form>
 
 
@@ -49,10 +52,11 @@ useEffect(() => {
        {comments.map((comment)=>{
 return (
     <div>
-
-{/* <img src={comment.user.profileImage}/> */}
-{/* <h3 className="text-white">{comment.user.username}</h3> */}
-<p className="text-white">{comment.content}</p>
+<div className="flex items-center">
+<img src={comment.user.profileImage} className="w-8 rounded-full border-[#522B37DB] border-3"/>
+<h3 className=" text-[rgb(228,134,134)] text-lg">{comment.user.username}</h3>
+</div>
+<p className="text-white text-lg">{comment.content}</p>
     </div>
 )
       })}

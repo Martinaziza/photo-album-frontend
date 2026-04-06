@@ -3,7 +3,6 @@ import { AuthContext } from "../contexts/AuthContext"
 import axios from "axios"
 import CreateAlbum from "../components/CreateAlbum"
 import Users from "../components/Users"
-
 const Profile = () => {
 
 const {isLoading, isLoggedIn, currentUser} = useContext(AuthContext)
@@ -28,10 +27,10 @@ getProfileUser()
 }, [currentUser])
   return (
     <div className="bg-black w-screen">
-    <div className="flex">
+    <div className="flex items-center pt-4">
 
-<img src={profileUser.profileImage} className=" w-24"></img>
-      <h1 className="text-2xl text-white">
+<img src={profileUser.profileImage} className="border-[#522B37DB] border-3 rounded-full w-20 ml-4"></img>
+      <h1 className="text-3xl text-[rgb(228,134,134)] ml-4">
 {profileUser.username}'s Profile
       </h1> 
     </div>

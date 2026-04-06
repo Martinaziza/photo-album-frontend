@@ -94,19 +94,18 @@ const handleDeletePhoto = async (photoId) => {
 
   return (
     <div className="text-white h-screen w-screen bg-black">
-      <h1> {album.title} </h1>
 
-       <form onSubmit={handleSubmit} className="flex flex-col mt-10 ml-8">
-    <label className="text-blue-700">
+       <form onSubmit={handleSubmit} className="flex flex-col py-8 pl-8">
+    <label className="text-[rgb(228,134,134)]">
         Photos: 
-        <input type="text" value={imageUrl} onChange={(e)=>{setImageUrl(e.target.value)}} className="mx-2 border" />
+        <input type="text" value={imageUrl} onChange={(e)=>{setImageUrl(e.target.value)}} className="mx-2 border-[#522B37DB] border-2 rounded-md" />
     </label>
-       <button type="submit" className="bg-blue-700 my-4 px-2 py-1 w-30">
+       <button type="submit" className="border-[#522B37DB] border-2 bg-[rgb(228,134,134)] rounded-md my-4 px-2 py-1 w-30">
       Add photos +
     </button>
     </form>
  
- 
+ <h1 className="font-[Rock_Salt] text-[rgb(228,134,134)] text-3xl text-center mb-9 "> {album.title} </h1>
  {photos.map((photo)=>{
   return (
     <div key={photo._id} className="bg-black">
@@ -130,7 +129,7 @@ const handleDeletePhoto = async (photoId) => {
      ) : <span
     onClick={() => {
     setEditingId(photo._id);
-    setCaption(photo.caption)}}>
+    setCaption(photo.caption)}} >
       {photo.caption || "Click to edit" }
     </span>
       }

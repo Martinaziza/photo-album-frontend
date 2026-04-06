@@ -73,7 +73,7 @@ const CreateAlbum = () => {
   return (
     <div className="w-screen bg-black">
       <form onSubmit={handleSubmit} className="flex flex-col mt-10 ml-8">
-        <label className="text-blue-700">
+        <label className="text-[rgb(228,134,134)]">
           Title:
           <input
             type="text"
@@ -81,20 +81,20 @@ const CreateAlbum = () => {
             onChange={(e) => {
               setTitle(e.target.value);
             }}
-            className="mx-2 border"
+            className="mx-2 border-[#522B37DB] border-2 rounded-md "
           />
         </label>
-        <button type="submit" className="bg-blue-700 my-4 px-2 py-1 w-30">
+        <button type="submit" className="border-[#522B37DB] border-2 bg-[rgb(228,134,134)] rounded-md my-4 px-2 py-1 w-30">
           Create New Album +
         </button>
       </form>
 
-      <div className="flex flex-wrap">
+      <div className="flex flex-wrap justify-center">
         {albums.map((album) => {
           return (
             <div
               key={album._id}
-              className="flex flex-col align-middle m-12 w-80 h-56 bg-blue-700"
+              className="flex align-middle m-12 w-80 h-56 bg-[#522B37DB] border-2 group relative justify-center items-center border-amber-400"
             >
               {editingId === album._id ? (
                 <input
@@ -109,30 +109,29 @@ const CreateAlbum = () => {
                     if (e.key === "Enter") handleSaveAlbum(album._id);
                     if (e.key === "Escape") setEditingId(null);
                   }}
-                  className="text-white w-20"
+                  className="w-25 h-10"
                 />
               ) : (
-                <h3
+                <h2
                   onClick={() => {
                     setEditingId(album._id);
                     setEditTitle(album.title);
                   }}
-                  className="w-80 h-56 flex justify-center bg-blue-700"
+                  className="text-[rgb(228,134,134)] text-2xl font-[Rock_Salt]"
                 >
-                  {" "}
-                  {album.title}{" "}
-                </h3>
+                  {album.title}
+                </h2>
               )}
 
               <span
                 onClick={() => handleDeleteAlbum(album._id)}
-                className="text-white ml-2 h-6 w-4"
+                className="absolute top-1 right-2 cursor-pointer opacity-0 group-hover:opacity-100 text-[25px] text-white"
               >
                 x
               </span>
 
               <Link to={`album/${album._id}`}>
-                <p className="text-white mt-2">See Album</p>
+                <p className="absolute bottom-2 left-2 text-white opacity-0 group-hover:opacity-100 px-27 py-2">View Album</p>
               </Link>
             </div>
           );

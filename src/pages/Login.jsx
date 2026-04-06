@@ -2,15 +2,19 @@ import axios from 'axios'
 import { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AuthContext } from '../contexts/AuthContext'
+import Logo from "../assets/Snapshots logo.png"
 
 const Login = () => {
 const [username, setUsername] = useState("")
 const [password, setPassword] = useState("")
+const [errorMessage, setErrorMessage] = useState("")
 const {authenticateUser} = useContext(AuthContext)
+
 const nav = useNavigate()
 
  async function handleLogin(e) {
     e.preventDefault();
+    setErrorMessage("")
     //create an object with all the data
     try {
       const res = await axios.post("http://localhost:5005/auth/login", {
@@ -25,23 +29,27 @@ const nav = useNavigate()
       nav("/profile");
     } catch (error) {
       console.log(error);
+      const errMsg = error.response.data.message
+      setErrorMessage(errMsg)
     }
   }
 
 
   return (
-    <div className='h-screen bg-black w-screen'>
-      <form onSubmit={handleLogin} className="flex flex-col justify-center bg-black h-screen" >
-<label className="text-white">
+    <div className='h-[90vh] bg-black w-screen flex flex-col items-center'>
+    <img src={Logo} alt="logo" className="h-45 object-contain pt-10 w-45"/>
+      <form onSubmit={handleLogin} className="flex flex-col justify-center  w-[45vw] items-center mt-8" >
+<label className='text-[rgb(228,134,134)]'>
     Username:
-    <input type="text" value={username} onChange={(e)=>{setUsername(e.target.value)}} className='border-2 border-pink-600 ml-3 mb-4'/>
+    <input type="text" value={username} onChange={(e)=>{setUsername(e.target.value)}} className='border-[#522B37DB] border-2 text-[rgb(228,134,134)] rounded-md ml-3 mb-4'/>
 </label>
-<label className="text-white">
+<label className="text-[rgb(228,134,134)]">
     Password:
-    <input type="password" value={password} onChange={(e)=>{setPassword(e.target.value)}}className='border-2 border-pink-600 ml-3 mb-3'/>
+    <input type="password" value={password} onChange={(e)=>{setPassword(e.target.value)}}className='border-[#522B37DB] border-2 text-[rgb(228,134,134)] rounded-md ml-3 mb-5'/>
 </label>
-<button className="border-2 border-amber-100 w-20 text-white py-1" type="submit" >Login</button> 
+<button className="border-[#522B37DB] border-2 bg-[rgb(228,134,134)] rounded-md w-20 py-1" type="submit" >Login</button> 
       </form>
+      <p className="text-[#E83D3D] mt-6 text-[18px]">{errorMessage}</p>
     </div>
   )
 }
