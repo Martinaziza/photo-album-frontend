@@ -26,10 +26,10 @@ useEffect(()=>{
 getProfileUser()
 }, [currentUser])
   return (
-    <div className="bg-black w-screen">
+    <div className="bg-black w-screen min-h-screen flex flex-col">
     <div className="flex items-center pt-4">
 
-<img src={profileUser.profileImage} className="border-[#522B37DB] border-3 rounded-full w-20 ml-4"></img>
+<img src={profileUser.profileImage} className="border-[#522B37DB] border-3 rounded-full w-20 ml-6"></img>
       <h1 className="text-3xl text-[rgb(228,134,134)] ml-4">
 {profileUser.username}'s Profile
       </h1> 
@@ -38,7 +38,11 @@ getProfileUser()
 
 <CreateAlbum/>
 
+  <div className="mt-auto">
+
 <Users/>
+  </div>
+
    
     </div>
   )

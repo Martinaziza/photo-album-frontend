@@ -6,10 +6,13 @@ const [users, setUsers] = useState([])
 
 //get all users
  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
+   const fetchUsers = async () => {
+     try {
+        const storedToken = localStorage.getItem('authToken');
         const response = await axios.get(
-          `http://localhost:5005/auth/users/`,
+          `http://localhost:5005/auth/users/`, {
+    headers: { Authorization: `Bearer ${storedToken}` }
+  }
         );
         setUsers(response.data);
         console.log(response.data);
@@ -23,17 +26,22 @@ const [users, setUsers] = useState([])
 
 
   return (
-    <div>
+
+    <div className="flex flex-col bg-black">
+    <h2 className=" text-[rgb(228,134,134)] text-center text-3xl mb-6 font-light">Check out other users!</h2>
+    <div className="flex justify-evenly pb-10">
       {users.map((user)=>{
 return (
-    <div>
+    <div className="flex items-center">
 
-<img src={user.profileImage} className="w-16"/>
-<h2>{user.username}</h2>
+<img src={user.profileImage} className="h-16 border-[#522B37DB] border-3 rounded-full"/>
+<h2 className=" text-[rgb(228,134,134)] ml-4 text-3xl font-light">{user.username}</h2>
     </div>
 )
       })}
     </div>
+    </div>
+
   )
 }
 

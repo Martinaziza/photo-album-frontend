@@ -94,7 +94,7 @@ const CreateAlbum = () => {
           return (
             <div
               key={album._id}
-              className="flex align-middle m-12 w-80 h-56 bg-[#522B37DB] border-2 group relative justify-center items-center border-amber-400"
+              className="flex align-middle m-12 w-80 h-56 bg-[#522B37DB] border-2 group relative justify-center items-center"
             >
               {editingId === album._id ? (
                 <input

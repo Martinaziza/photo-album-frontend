@@ -43,16 +43,16 @@ useEffect(() => {
     <div>
 <form onSubmit={handleSubmitComment} className="flex flex-col">
 <input type="text" value={content} 
-  onChange={(e) => setContent(e.target.value)} className="border-[#522B37DB] border-2 rounded-md w-70 h-15"/>
-<button type="submit" className="border-[#522B37DB] border-2 bg-[rgb(228,134,134)] rounded-md w-30"> Leave a comment!</button>
+  onChange={(e) => setContent(e.target.value)} className="border-[#522B37DB] border-2 rounded-md w-70 h-15 mt-4"/>
+<button type="submit" className="border-[#522B37DB] border-2 bg-[rgb(228,134,134)] rounded-md w-30 mt-2 mb-4"> Leave a comment!</button>
 </form>
 
 
 
        {comments.map((comment)=>{
 return (
-    <div>
-<div className="flex items-center">
+    <div key={comment._id} className="mb-4">
+<div className="flex ">
 <img src={comment.user.profileImage} className="w-8 rounded-full border-[#522B37DB] border-3"/>
 <h3 className=" text-[rgb(228,134,134)] text-lg">{comment.user.username}</h3>
 </div>
