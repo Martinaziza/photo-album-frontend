@@ -18,7 +18,7 @@ const nav = useNavigate()
     setErrorMessage("")
     //create an object with all the data
     try {
-      const res = await axios.post("${API_URL}/auth/login", {
+      const res = await axios.post(`${API_URL}/auth/login`, {
         username,
         password,
       });

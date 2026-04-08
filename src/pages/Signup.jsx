@@ -19,7 +19,7 @@ e.preventDefault();
 setErrorMessage("")
 const userToSignup = {username, email, password}
 try {
-    const createdUser = await axios.post("${API_URL}/auth/signup", userToSignup)
+    const createdUser = await axios.post(`${API_URL}/auth/signup`, userToSignup)
 
     console.log('User signed up:', createdUser.data)
     nav("login/")
