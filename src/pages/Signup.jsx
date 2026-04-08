@@ -32,11 +32,11 @@ try {
 
 
   return (
-    <div className='bg-black h-[99vh] w-screen flex flex-col items-center'>
+    <div className='bg-black w-screen h-[110vh] flex flex-col items-center border-2 border-amber-600'>
     <img src={Logo} alt="logo" className="h-45 object-contain mt-10 w-45"/>
 
       <form onSubmit={handleSignup} className=" flex flex-col mt-8 w-[45vw] items-center">
-      <h1 className='text-[rgb(228,134,134)] mb-7 text-lg'>Sign up to create your own photo albums</h1>
+      <h1 className='text-[rgb(228,134,134)] text-lg mb-6'>Sign up to create your own photo albums</h1>
 <label className='text-[rgb(228,134,134)]'>
     Username:
     <input type="text" value={username} onChange={(e)=>{setUsername(e.target.value)}} className='border-[#522B37DB] border-2 text-[rgb(228,134,134)] rounded-md ml-3 mb-4 text-lg'/>
