@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Comments from "../components/Comments";
+import { API_URL } from "../config/config";
 
 const AlbumDetails = () => {
   const { albumId } = useParams();
@@ -16,7 +17,7 @@ const AlbumDetails = () => {
     const oneAlbum = async () => {
       try {
         const { data } = await axios.get(
-          `http://localhost:5005/api/album/${albumId}`,
+          `${API_URL}/api/album/${albumId}`,
         );
         setAlbum(data);
       } catch (error) {
@@ -39,7 +40,7 @@ const AlbumDetails = () => {
 
     try {
       const response = await axios.post(
-        `http://localhost:5005/api/album/${albumId}/photo`,
+        `${API_URL}/api/album/${albumId}/photo`,
         { newPhotos: urlArray },
       );
       console.log(response.data);
@@ -57,7 +58,7 @@ const AlbumDetails = () => {
     const fetchPhotos = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5005/api/album/${albumId}/photo`,
+          `${API_URL}/api/album/${albumId}/photo`,
         );
         setPhotos(response.data);
         console.log(response.data);
@@ -71,7 +72,7 @@ const AlbumDetails = () => {
   const handleSave = async (photoId) => {
     try {
       await axios.patch(
-        `http://localhost:5005/api/album/${albumId}/photo/${photoId}`,
+        `${API_URL}/api/album/${albumId}/photo/${photoId}`,
         { caption: caption },
       );
 
@@ -92,7 +93,7 @@ const AlbumDetails = () => {
   const handleDeletePhoto = async (photoId) => {
     try {
       await axios.delete(
-        `http://localhost:5005/api/album/${albumId}/photo/${photoId}`,
+        `${API_URL}/api/album/${albumId}/photo/${photoId}`,
       );
       setPhotos((prev) => prev.filter((photo) => photo._id !== photoId));
     } catch (error) {
@@ -122,7 +123,7 @@ const AlbumDetails = () => {
         </button>
       </form>
 
-      <h1 className="font-[Rock_Salt] text-[rgb(228,134,134)] text-3xl text-center mb-9 ">
+      <h1 className="font-['Annie_Use_Your_Telescope'] text-[rgb(228,134,134)] text-5xl font-medium text-center mb-9 ">
         {" "}
         {album.title}{" "}
       </h1>

@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { API_URL } from "../config/config";
 
 const Comments = ({photoId}) => {
 const [comments, setComments] = useState([])
@@ -11,7 +12,7 @@ const [content, setContent] = useState("")
     try {
       const storedToken = localStorage.getItem('authToken')
       const response = await axios.post(
-        `http://localhost:5005/api/photo/${photoId}/comment`,
+        `${API_URL}/api/photo/${photoId}/comment`,
         { content },
         { headers: { Authorization: `Bearer ${storedToken}` } }
       );
@@ -27,7 +28,7 @@ useEffect(() => {
     const fetchComments = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5005/api/photo/${photoId}/comment`,
+          `${API_URL}/api/photo/${photoId}/comment`,
         );
         setComments(response.data);
         console.log(response.data);
@@ -52,9 +53,9 @@ useEffect(() => {
        {comments.map((comment)=>{
 return (
     <div key={comment._id} className="mb-4">
-<div className="flex ">
-<img src={comment.user.profileImage} className="w-8 rounded-full border-[#522B37DB] border-3"/>
-<h3 className=" text-[rgb(228,134,134)] text-lg">{comment.user.username}</h3>
+<div className="flex items-center">
+<img src={comment.user.profileImage} className="w-8 rounded-full border-[#522B37DB] border-3 mr-2"/>
+<h3 className=" text-[rgb(228,134,134)] text-2xl font-['Annie_Use_Your_Telescope']">{comment.user.username}</h3>
 </div>
 <p className="text-white text-lg">{comment.content}</p>
     </div>

@@ -3,6 +3,7 @@ import { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AuthContext } from '../contexts/AuthContext'
 import Logo from "../assets/Snapshots logo.png"
+import { API_URL } from '../config/config'
 
 const Login = () => {
 const [username, setUsername] = useState("")
@@ -17,7 +18,7 @@ const nav = useNavigate()
     setErrorMessage("")
     //create an object with all the data
     try {
-      const res = await axios.post("http://localhost:5005/auth/login", {
+      const res = await axios.post("${API_URL}/auth/login", {
         username,
         password,
       });

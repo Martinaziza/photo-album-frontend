@@ -2,6 +2,7 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import { Link } from "react-router-dom";
+import { API_URL } from "../config/config";
 
 const CreateAlbum = () => {
   const { currentUser } = useContext(AuthContext);
@@ -16,7 +17,7 @@ const CreateAlbum = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        `http://localhost:5005/api/users/${currentUser}/album`,
+        `${API_URL}/api/users/${currentUser}/album`,
         { title },
       );
       console.log(response.data);
@@ -32,7 +33,7 @@ const CreateAlbum = () => {
     const fetchAlbums = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5005/api/users/${currentUser}/album`,
+          `${API_URL}/api/users/${currentUser}/album`,
         );
         setAlbums(response.data);
         console.log(response.data);
@@ -45,7 +46,7 @@ const CreateAlbum = () => {
 
   const handleSaveAlbum = async (albumId) => {
     try {
-      await axios.patch(`http://localhost:5005/api/album/${albumId}`, {
+      await axios.patch(`${API_URL}/api/album/${albumId}`, {
         title: editTitle,
       });
       setAlbums((prev) =>
@@ -63,7 +64,7 @@ const CreateAlbum = () => {
   //delete an album
   const handleDeleteAlbum = async (albumId) => {
     try {
-      await axios.delete(`http://localhost:5005/api/album/${albumId}`);
+      await axios.delete(`${API_URL}/api/album/${albumId}`);
       setAlbums((prev) => prev.filter((album) => album._id !== albumId));
     } catch (error) {
       console.log(error);
@@ -117,7 +118,7 @@ const CreateAlbum = () => {
                     setEditingId(album._id);
                     setEditTitle(album.title);
                   }}
-                  className="text-[rgb(228,134,134)] text-2xl font-[Rock_Salt]"
+                  className="text-[rgb(228,134,134)] text-5xl font-['Annie_Use_Your_Telescope']"
                 >
                   {album.title}
                 </h2>

@@ -3,6 +3,8 @@ import { AuthContext } from "../contexts/AuthContext"
 import axios from "axios"
 import CreateAlbum from "../components/CreateAlbum"
 import Users from "../components/Users"
+import { API_URL } from "../config/config"
+
 const Profile = () => {
 
 const {isLoading, isLoggedIn, currentUser} = useContext(AuthContext)
@@ -12,7 +14,7 @@ useEffect(()=>{
   async function getProfileUser(){
     const token = localStorage.getItem("authToken");
     try {
-      const {data} = await axios.get(`http://localhost:5005/auth/users/${currentUser}`,
+      const {data} = await axios.get(`${API_URL}/auth/users/${currentUser}`,
         {
           headers: { Authorization: `Bearer ${token}` }
         }
@@ -30,7 +32,7 @@ getProfileUser()
     <div className="flex items-center pt-4">
 
 <img src={profileUser.profileImage} className="border-[#522B37DB] border-3 rounded-full w-20 ml-6"></img>
-      <h1 className="text-3xl text-[rgb(228,134,134)] ml-4">
+      <h1 className="text-4xl text-[rgb(228,134,134)] ml-4 font-['Annie_Use_Your_Telescope']">
 {profileUser.username}'s Profile
       </h1> 
     </div>
@@ -39,7 +41,6 @@ getProfileUser()
 <CreateAlbum/>
 
   <div className="mt-auto">
-
 <Users/>
   </div>
 

@@ -2,6 +2,7 @@ import axios from 'axios'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Logo from "../assets/Snapshots logo.png"
+import { API_URL } from '../config/config'
 
 const Signup = () => {
 const [username, setUsername] = useState("")
@@ -18,7 +19,7 @@ e.preventDefault();
 setErrorMessage("")
 const userToSignup = {username, email, password}
 try {
-    const createdUser = await axios.post("http://localhost:5005/auth/signup", userToSignup)
+    const createdUser = await axios.post("${API_URL}/auth/signup", userToSignup)
 
     console.log('User signed up:', createdUser.data)
     nav("login/")
