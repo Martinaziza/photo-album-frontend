@@ -1,6 +1,7 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { API_URL } from "../config/config";
 
 const AuthContext = createContext()
 
@@ -23,7 +24,7 @@ const authenticateUser = async function () {
         setCurrentUser(null);
         return;
       }
-      const { data } = await axios.get("http://localhost:5005/auth/verify", {
+      const { data } = await axios.get(`${API_URL}/auth/verify`, {
         headers: {
           authorization: `Bearer ${theToken}`,
         },
