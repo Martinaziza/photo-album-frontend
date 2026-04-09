@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import { Link } from "react-router-dom";
 import { API_URL } from "../config/config";
+import paperBg from "../assets/handmade-paper.png"
 
 const CreateAlbum = () => {
   const { currentUser } = useContext(AuthContext);
@@ -95,7 +96,8 @@ const CreateAlbum = () => {
           return (
             <div
               key={album._id}
-              className="flex align-middle m-12 w-80 h-56 bg-[#522B37DB] border-2 group relative justify-center items-center"
+              style={{ backgroundImage: `url(${paperBg})` }}
+              className="flex align-middle m-12 w-80 h-56 border-2 bg-[#522B37DB] group relative justify-center items-center"
             >
               {editingId === album._id ? (
                 <input
@@ -118,7 +120,7 @@ const CreateAlbum = () => {
                     setEditingId(album._id);
                     setEditTitle(album.title);
                   }}
-                  className="text-[rgb(228,134,134)] text-5xl font-['Annie_Use_Your_Telescope']"
+                  className="text-[rgb(228,134,134)] text-5xl font-['Annie_Use_Your_Telescope'] underline decoration-2"
                 >
                   {album.title}
                 </h2>

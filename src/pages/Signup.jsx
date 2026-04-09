@@ -32,7 +32,7 @@ try {
 
 
   return (
-    <div className='bg-black w-screen h-[110vh] flex flex-col items-center border-2 border-amber-600'>
+    <div className='bg-black w-screen h-[110vh] flex flex-col items-center'>
     <img src={Logo} alt="logo" className="h-45 object-contain mt-10 w-45"/>
 
       <form onSubmit={handleSignup} className=" flex flex-col mt-8 w-[45vw] items-center">
